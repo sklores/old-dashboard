@@ -1,0 +1,89 @@
+/* src/styles/topbar.css */
+
+/* ============ FRAME (outer container) ============ */
+.tb-frame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(#0d1117, #0b0f15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 10px;
+}
+
+/* ============ FIXED STAGE (scenic box) ============ */
+.tb-stage {
+  position: relative;
+  width: 400px;
+  height: 120px;
+  overflow: hidden;           /* keep weather/clouds inside the stage */
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* ============ LAYERS ============ */
+.tb-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.tb-waves {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 48px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tb-weather {
+  position: absolute;
+  inset: 0;
+  z-index: 1;                /* above sky, below waves/lighthouse/logo */
+  pointer-events: none;
+}
+
+.tb-weather-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tb-lighthouse {
+  position: absolute;
+  z-index: 3;
+}
+
+.tb-clientlogo {
+  position: absolute;
+  z-index: 4;
+}
+
+/* ============ WAVE ANIMATION (unchanged) ============ */
+@keyframes waveScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-400px); } /* matches .tb-stage width */
+}
+
+.tb-wave-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 800px;  /* 2x width for scroll */
+  animation-name: waveScroll;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  will-change: transform;
+}
+
+.tb-wave-front {
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+}
+
+/* Optional debug outlines
+.tb-sky { outline: 1px dashed blue; }
+.tb-weather { outline: 1px dashed magenta; }
+.tb-waves { outline: 1px dashed cyan; }
+.tb-lighthouse { outline: 1px dashed lime; }
+.tb-clientlogo { outline: 1px dashed orange; }
+*/
